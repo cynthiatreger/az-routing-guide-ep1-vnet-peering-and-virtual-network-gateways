@@ -28,8 +28,8 @@ By default all resources in a VNET can communicate outbound to the internet, hen
 
 Using this peering logic, since the Hub VNET is peered with both Spoke1 and Spoke2 VNETs, the HubVM will know about its own Hub VNET range and both Spoke1 & Spoke2 ranges.
  
- <img width="1020" alt="image" src="https://user-images.githubusercontent.com/110976272/215171166-36b11789-f343-41d7-98fa-7936438e6b64.png">
- 
+<img width="1024" alt="image" src="https://user-images.githubusercontent.com/110976272/215198265-b090797f-4d19-45dc-9d4e-afe20bd35092.png">
+
 ## 1.2. Connectivity Impact of adding a Virtual Network Gateway (ER or VPN)
 
 ### 1.2.1.	Azure Virtual Network GW (VPN or ER) for On-Prem Connectivity
