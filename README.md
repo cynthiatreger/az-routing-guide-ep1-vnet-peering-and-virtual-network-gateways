@@ -33,17 +33,15 @@ Using this peering logic, since the Hub VNET is peered with both Spoke1 and Spok
 # 1.2. Connectivity Impact of adding a Virtual Network Gateway (ER or VPN)
 
 ## 1.2.1.	Azure Virtual Network GW (VPN or ER) for On-Prem Connectivity
-:arrow_right: Whether it is VPN or ER, if a Virtual Network Gateway (VNG) is added in a VNET, the On-Prem routing prefixes received on the virtual Network GW will by default automatically be propagated and programmed in the Effective routes of any VM in this VNET and, **depending on per-peering settings**, in peered VNETs too eventually. 
+Let's look at the **default route propagation** when an Virtual Network GW is deployed (Expressroute GW here, but the results would be similar with a VPN GW). The VNET hosting the virtual Network GW is usually a central hub VNET, its range is advertised in return to the On-Prem.
 
-The VNET hosting the virtual Network GW is usually a central hub VNET, its range is advertised in return to the On-Prem.
+:arrow_right: Whether it is VPN or ER, if a Virtual Network Gateway (VNG) is added in a Hub VNET, the On-Prem routing prefixes received on the virtual Network GW will by default automatically be propagated and programmed in the Effective routes of any VM in this Hub VNET.
 
-Let's look at the **default route propagation** when an Virtual Network GW is deployed (Expressroute GW here, but the results would be similar with a VPN GW). 
+:arrow_right: By default, the propagation over existing VNET peerings is NOT enabled: the On-Prem prefixes received by the Virtual Network GW are NOT readvertised to the peered Spoke VNETs and the Spoke VNET IP ranges are NOT propagated On-Prem.
 
 *The On-Prem is emulated by a VNET connected to the Hub VNET Expressroute circuit.* 
 
 <img width="1024" alt="image" src="https://user-images.githubusercontent.com/110976272/215268623-5e4ca81d-fc4f-49f9-8607-f7c9a986f57d.png">
-
-:arrow_right: By default, adding a Virtual Network GW does NOT enable the transit on EXISTING VNET peerings: the On-Prem prefixes received on the Virtual Network GW are NOT readvertised to the peered VNETs and the Spoke VNET IP ranges are NOT propagated On-Prem.
 
 ## 1.2.2.	On-Prem <=> Spokes propagation
 
@@ -52,7 +50,7 @@ Let's look at the **default route propagation** when an Virtual Network GW is de
 Let's enable **GW Transit** on the peering between Spoke1 VNET and the Hub VNET (hosting the Virtual Network GW). Both sides of the peering must be updated:
 
 
-<img width="800" alt="image" src="https://user-images.githubusercontent.com/110976272/215270865-bd19eb5f-1c29-4005-873a-e64b5260e56f.png">
+<img width="700" alt="image" src="https://user-images.githubusercontent.com/110976272/215270865-bd19eb5f-1c29-4005-873a-e64b5260e56f.png">
 
 :arrow_right: The On-Prem prefixes will start being “treated” like IP ranges of the Hub VNET: following the VNET peering principle they will get propagated to this directly peered Spoke VNET and be programmed in its VMs, with “Virtual Network Gateway” displayed as Next-Hop type.
 
