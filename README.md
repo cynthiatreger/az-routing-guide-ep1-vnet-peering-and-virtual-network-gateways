@@ -2,15 +2,19 @@
 
 [1.1. Discovery/Reminder of Azure VNET connectivity principles](https://github.com/cynthiatreger/az-routing-guide-part1-vnet-peering-and-virtual-network-gateways/edit/main/README.md#11-discoveryreminder-of-azure-vnet-connectivity-principles)
 
-[1.1.1. VNET peering & Effective routes](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways/edit/main/README.md#111-vnet-peering--effective-routes)
+[1.1.1. VNET peering & *Effective routes*](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways/edit/main/README.md#111-vnet-peering--effective-routes)
   
-[1.1.2. Standard H&S topology and non-transitivity of VNET peerings](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways/edit/main/README.md#112standard-hs-topology-and-non-transitivity-of-vnet-peerings)
+[1.1.2. Standard Hub & Spoke topology and non-transitivity of VNET peerings](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways/edit/main/README.md#112standard-hs-topology-and-non-transitivity-of-vnet-peerings)
 
-[1.2. Connectivity Impact of adding a Virtual Network Gateway (ER or VPN)](https://github.com/cynthiatreger/az-routing-guide-part1-vnet-peering-and-virtual-network-gateways/edit/main/README.md#12-connectivity-impact-of-adding-a-virtual-network-gateway)
+[1.2. Connectivity impact of adding a Virtual Network Gateway (ER or VPN)](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways/edit/main/README.md#12-connectivity-impact-of-adding-a-virtual-network-gateway-er-or-vpn)
 
-## 1.1. Discovery/Reminder of Azure VNET Connectivity Principles
+[1.2.1. Azure Virtual Network GW (VPN or ER) for On-Prem connectivity](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways/edit/main/README.md#121azure-virtual-network-gw-vpn-or-er-for-on-prem-connectivity)
 
-### 1.1.1. VNET Peering & *Effective Routes*
+[1.2.2. On-Prem <=> Spokes propagation](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways/edit/main/README.md#122on-prem--spokes-propagation) ([*Gateway Transit*](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways/edit/main/README.md#1221-gw-transit-scope--the-entire-vnet--the-vnet-range-is-or-is-not-advertised-on-prem) & [*Gateway route propagation*](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways/edit/main/README.md#1222-propagate-gateway-routes-scope--selected-subnets-of-a-vnet-only--the-vnet-range-still-gets-advertised-on-prem) features)
+
+## 1.1. Discovery/Reminder of Azure VNET connectivity principles
+
+### 1.1.1. VNET peering & *Effective routes*
 
 To start, we will consider [2 peered VNETs](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways/edit/main/README.md#111-vnet-peering--effective-routes) and a VM in Spoke1 VNET. A single IP range* is allocated to each VNET. In the example below, each IP range is broken into 2 subnets.
 
@@ -22,7 +26,7 @@ From an Azure networking perspective, according to Spoke1VM's *Effective routes*
 
 By default all resources in a VNET can communicate outbound to the internet, hence the default route.
 
-### 1.1.2. Standard Hub & Spoke Topology and Non-Transitivity of VNET Peerings
+### 1.1.2. Standard Hub & Spoke topology and non-Transitivity of VNET peerings
 
 **Peering connections are non-transitive:** in a standard Hub & Spoke topology like depicted below, Spoke1VM will know about the Spoke1 VNET range AND the central VNET (Hub VNET) range, but because there is no direct peering between Spoke1 VNET and Spoke2 VNET, they won’t know about each other. 
 
@@ -30,14 +34,16 @@ Using this peering logic, since the Hub VNET is peered with both Spoke1 and Spok
 
 <img width="1024" alt="image" src="https://user-images.githubusercontent.com/110976272/215268136-947d048a-c805-4bf5-b637-1ed2db7e563e.png">
 
-# 1.2. Connectivity Impact of adding a Virtual Network Gateway (ER or VPN)
+# 1.2. Connectivity impact of adding a Virtual Network Gateway (ER or VPN)
 
-## 1.2.1.	Azure Virtual Network GW (VPN or ER) for On-Prem Connectivity
-Let's look at the **default route propagation** when an Virtual Network GW is deployed (Expressroute GW here, but the results would be similar with a VPN GW). The VNET hosting the virtual Network GW is usually a central hub VNET, its range is advertised in return to the On-Prem.
+## 1.2.1.	Azure Virtual Network GW (VPN or ER) for On-Prem connectivity
+Let's look at the **default route propagation** when an Virtual Network GW is deployed (Expressroute GW here, but the results would be similar with a VPN GW). 
 
-:arrow_right: Whether it is VPN or ER, if a Virtual Network Gateway (VNG) is added in a Hub VNET, the On-Prem routing prefixes received on the virtual Network GW will by default automatically be propagated and programmed in the Effective routes of any VM in this Hub VNET.
+The VNET hosting the virtual Network GW is usually a central Hub VNET.
 
-:arrow_right: By default, the propagation over existing VNET peerings is NOT enabled: the On-Prem prefixes received by the Virtual Network GW are NOT readvertised to the peered Spoke VNETs and the Spoke VNET IP ranges are NOT propagated On-Prem.
+:arrow_right: Whether it is VPN or ER, if a Virtual Network Gateway (VNG) is added in a Hub VNET and further connected to On-Prem, the the On-Prem  prefixes received by the virtual Network GW will by default automatically be known within this Hub VNET. The Hub VNET range is advertised in return to the On-Prem.
+
+:arrow_right: By default, the On-Prem connectivity is not extended over existing VNET peerings: the On-Prem prefixes received by the Virtual Network GW are NOT readvertised to the peered Spoke VNETs and the Spoke VNET IP ranges are NOT propagated On-Prem.
 
 *The On-Prem is emulated by a VNET connected to the Hub VNET Expressroute circuit.* 
 
@@ -47,8 +53,9 @@ Let's look at the **default route propagation** when an Virtual Network GW is de
 
 ### 1.2.2.1. “GW transit” scope = the entire VNET & the VNET range is (or is not) advertised On-Prem
 
-Let's enable **GW Transit** on the peering between Spoke1 VNET and the Hub VNET (hosting the Virtual Network GW). Both sides of the peering must be updated:
+***GW Transit*** allows to extend the scope of the connectivity between Azure and On-Prem to peered VNETs, as represented on the diagram below for Spoke1 VNET. 
 
+It is a per-VNET peering feature that must be applied on both ends of a peering:
 
 <img width="700" alt="image" src="https://user-images.githubusercontent.com/110976272/215270865-bd19eb5f-1c29-4005-873a-e64b5260e56f.png">
 
@@ -60,16 +67,11 @@ Let's enable **GW Transit** on the peering between Spoke1 VNET and the Hub VNET 
 
 ### 1.2.2.2. “Propagate Gateway Routes” scope = selected subnets of a VNET only & the VNET range still gets advertised On-Prem
 
-A new VM is added in Spoke1/subnet2: Spoke1VM2. As ***GW Transit*** is enabled for Spoke1, Spoke1VM2 does know about the On-Prem prefixes.
+Spoke1VM2 is a new VM is added in Spoke1/subnet2. As ***GW Transit*** is enabled for Spoke1, Spoke1VM2 does know about the On-Prem prefixes. But let's imagine we want the resources in this specific subnet to be isolated from On-Prem. 
 
-Let's imagine we want the resources in this specific subnet to be isolated from On-Prem. 
+:arrow_right: If a route table with "***Gateway route propagation*** = disabled" is applied to a specific subnet, either in the VNET hosting the Virtual Network Gateway or in a peered VNET, then the On-Prem prefixes received by the GW will NOT be propagated to this given subnet.
 
-:arrow_right: If a route table with ***Gateway route propagation = disabled*** is applied to a specific subnet, either in the VNET hosting the Virtual Network Gateway or in a peered VNET, then the On-Prem prefixes received by the GW will NOT be propagated to this given subnet only.
+:arrow_right: When ***GW route propagation*** is disabled, even on all the subnets of a VNET, the overall VNET IP range is STILL propagated On-Prem.
 
-To achieve this, a route table with ***Gateway route propagation = disabled*** is applied specifically to VNET1/subnet2, 
-
-either in the Virtual Network Gateway VNET or in a peered VNET, then the On-Prem prefixes received by the GW will NOT be included in the Effective routes of the VMs belonging to this given subnet only.
- 
- 
-When GW route propagation is disabled, even on all the subnets of a VNET, the overall VNET IP range is STILL propagated On-Prem.
+<img width="1076" alt="image" src="https://user-images.githubusercontent.com/110976272/215279209-17bf8e93-1fc7-4097-a08d-6360795885a2.png">
 
