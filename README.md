@@ -51,15 +51,15 @@ The VNET hosting the virtual Network GW is usually a central Hub VNET.
 
 ## 1.2.2.	On-Prem <=> Spokes propagation
 
-### 1.2.2.1. “GW transit” scope = the entire VNET & the VNET range is (or is not) advertised On-Prem
+### 1.2.2.1. “Gateway transit” scope = the entire VNET & the VNET range is (or is not) advertised On-Prem
 
-***GW Transit*** allows to extend the scope of the connectivity between Azure and On-Prem to peered VNETs, as represented on the diagram below for Spoke1 VNET. 
+[***Gateway Transit***](https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-peering-gateway-transit?toc=%2Fazure%2Fvirtual-network%2Ftoc.json) allows to extend the scope of the connectivity between Azure and On-Prem to peered VNETs, as represented on the diagram below for Spoke1 VNET. 
 
 It is a per-VNET peering feature that must be applied on both ends of a peering:
 
 <img width="700" alt="image" src="https://user-images.githubusercontent.com/110976272/215270865-bd19eb5f-1c29-4005-873a-e64b5260e56f.png">
 
-:arrow_right: The On-Prem prefixes will start being “treated” like IP ranges of the Hub VNET: following the VNET peering principle they will get propagated to this directly peered Spoke VNET and be programmed in its VMs, with “Virtual Network Gateway” displayed as Next-Hop type.
+:arrow_right: The On-Prem prefixes will start being “treated” like IP ranges of the Hub VNET: following the VNET peering principle they will get propagated to this directly peered Spoke VNET and be programmed in its VMs, with *Virtual Network Gateway* displayed as Next-Hop type.
 
 :arrow_right: And in return, the Spoke1 VNET range will also be advertised On-Prem.
 
@@ -69,7 +69,7 @@ It is a per-VNET peering feature that must be applied on both ends of a peering:
 
 Spoke1VM2 is a new VM is added in Spoke1/subnet2. As ***GW Transit*** is enabled for Spoke1, Spoke1VM2 does know about the On-Prem prefixes. But let's imagine we want the resources in this specific subnet to be isolated from On-Prem. 
 
-:arrow_right: If a route table with "***Gateway route propagation*** = disabled" is applied to a specific subnet, either in the VNET hosting the Virtual Network Gateway or in a peered VNET, then the On-Prem prefixes received by the GW will NOT be propagated to this given subnet.
+:arrow_right: If a route table with [***Gateway route propagation*** = disabled](https://learn.microsoft.com/en-us/azure/virtual-network/manage-route-table#create-a-route-table:~:text=Propagate%20gateway%20routes,to%20Disabled.) is applied to a specific subnet, either in the VNET hosting the Virtual Network Gateway or in a peered VNET, then the On-Prem prefixes received by the GW will NOT be propagated to this given subnet.
 
 :arrow_right: When ***GW route propagation*** is disabled, even on all the subnets of a VNET, the overall VNET IP range is STILL propagated On-Prem.
 
