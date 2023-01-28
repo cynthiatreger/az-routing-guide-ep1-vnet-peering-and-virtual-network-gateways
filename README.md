@@ -12,9 +12,9 @@
 
 [1.2.2. On-Prem <=> Spokes propagation](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#122on-prem--spokes-propagation) ([*Gateway Transit*](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#1221-gw-transit-scope--the-entire-vnet--the-vnet-range-is-or-is-not-advertised-on-prem) & [*Gateway route propagation*](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#1222-propagate-gateway-routes-scope--selected-subnets-of-a-vnet-only--the-vnet-range-still-gets-advertised-on-prem) features)
 
-## 1.1. Discovery/Reminder of Azure VNET connectivity principles
+# 1.1. Discovery/Reminder of Azure VNET connectivity principles
 
-### 1.1.1. VNET peering & *Effective routes*
+## 1.1.1. VNET peering & *Effective routes*
 
 To start, we will consider [2 peered VNETs](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview) and a VM in Spoke1 VNET. A single IP range* is allocated to each VNET. In the example below, each IP range is broken into 2 subnets.
 
@@ -26,7 +26,7 @@ From an Azure networking perspective, according to Spoke1VM's *Effective routes*
 
 By default all resources in a VNET can communicate outbound to the internet, hence the default route.
 
-### 1.1.2. Standard Hub & Spoke topology and non-Transitivity of VNET peerings
+## 1.1.2. Standard Hub & Spoke topology and non-Transitivity of VNET peerings
 
 **Peering connections are non-transitive:** in a standard Hub & Spoke topology like depicted below, Spoke1VM will know about the Spoke1 VNET range AND the central VNET (Hub VNET) range, but because there is no direct peering between Spoke1 VNET and Spoke2 VNET, they won’t know about each other. 
 
