@@ -63,7 +63,7 @@ It is a per-VNET peering feature that must be applied on both ends of a peering:
 
 :arrow_right: And in return, the Spoke1 VNET range will also be advertised On-Prem.
 
-<img width="1024" alt="image" src="https://user-images.githubusercontent.com/110976272/215272200-057f63f8-b395-492c-863c-fec654c8ea0e.png">
+<img width="1024" alt="image" src="https://user-images.githubusercontent.com/110976272/215283927-34c4d2a5-2e4c-4273-9400-c9f81bec2d25.png">
 
 ### 1.2.2.2. “Propagate Gateway Routes” scope = selected subnets of a VNET only & the VNET range still gets advertised On-Prem
 
@@ -73,5 +73,4 @@ Spoke1VM2 is a new VM is added in Spoke1/subnet2. As ***GW Transit*** is enabled
 
 :arrow_right: When ***GW route propagation*** is disabled, even on all the subnets of a VNET, the overall VNET IP range is STILL propagated On-Prem.
 
-<img width="1076" alt="image" src="https://user-images.githubusercontent.com/110976272/215279209-17bf8e93-1fc7-4097-a08d-6360795885a2.png">
-
+<img width="1118" alt="image" src="https://user-images.githubusercontent.com/110976272/215284125-96dceab0-f9c2-438e-b24b-8fd5e414ad88.png">
