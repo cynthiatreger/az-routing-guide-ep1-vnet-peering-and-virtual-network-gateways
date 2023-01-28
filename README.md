@@ -30,24 +30,27 @@ Using this peering logic, since the Hub VNET is peered with both Spoke1 and Spok
 
 <img width="1024" alt="image" src="https://user-images.githubusercontent.com/110976272/215268136-947d048a-c805-4bf5-b637-1ed2db7e563e.png">
 
-## 1.2. Connectivity Impact of adding a Virtual Network Gateway (ER or VPN)
+# 1.2. Connectivity Impact of adding a Virtual Network Gateway (ER or VPN)
 
-### 1.2.1.	Azure Virtual Network GW (VPN or ER) for On-Prem Connectivity
-Whether it is VPN or ER, if a Virtual Network Gateway (VNG) is added in a VNET, the On-Prem routing prefixes received on the virtual Network GW will by default automatically be propagated and programmed in the Effective routes of any VM in this VNET and, **depending on per-peering settings**, in peered VNETs too. 
+## 1.2.1.	Azure Virtual Network GW (VPN or ER) for On-Prem Connectivity
+:arrow_right: Whether it is VPN or ER, if a Virtual Network Gateway (VNG) is added in a VNET, the On-Prem routing prefixes received on the virtual Network GW will by default automatically be propagated and programmed in the Effective routes of any VM in this VNET and, **depending on per-peering settings**, in peered VNETs too eventually. 
 
 The VNET hosting the virtual Network GW is usually a central hub VNET, its range is advertised in return to the On-Prem.
 
-Let's look at the **default route propagation** when an Virtual Network GW is deployed (Expressroute GW here, but the results would be similar with a VPN GW). By default, adding a Virtual Network GW does NOT enable the transit on EXISTING VNET peerings:
+Let's look at the **default route propagation** when an Virtual Network GW is deployed (Expressroute GW here, but the results would be similar with a VPN GW). 
 
 *The On-Prem is emulated by a VNET connected to the Hub VNET Expressroute circuit.* 
 
 <img width="1024" alt="image" src="https://user-images.githubusercontent.com/110976272/215268623-5e4ca81d-fc4f-49f9-8607-f7c9a986f57d.png">
 
-### 1.2.2.	Propagation of Spokes & On-Prem prefixes
+:arrow_right: By default, adding a Virtual Network GW does NOT enable the transit on EXISTING VNET peerings: the On-Prem prefixes received on the Virtual Network GW are NOT readvertised to the peered VNETs and the Spoke VNET IP ranges are NOT propagated On-Prem.
 
-#### “GW transit” scope = the entire VNET & the VNET range is not advertised On-Prem
+## 1.2.2.	On-Prem <=> Spokes propagation
+
+### 1.2.2.1. “GW transit” scope = the entire VNET & the VNET range is (or is not) advertised On-Prem
 
 Let's enable **GW Transit** on the peering between Spoke1 VNET and the Hub VNET (hosting the Virtual Network GW). Both sides of the peering must be updated:
+
 
 <img width="800" alt="image" src="https://user-images.githubusercontent.com/110976272/215270865-bd19eb5f-1c29-4005-873a-e64b5260e56f.png">
 
@@ -57,4 +60,18 @@ Let's enable **GW Transit** on the peering between Spoke1 VNET and the Hub VNET 
 
 <img width="1024" alt="image" src="https://user-images.githubusercontent.com/110976272/215272200-057f63f8-b395-492c-863c-fec654c8ea0e.png">
 
+### 1.2.2.2. “Propagate Gateway Routes” scope = selected subnets of a VNET only & the VNET range still gets advertised On-Prem
+
+A new VM is added in Spoke1/subnet2: Spoke1VM2. As ***GW Transit*** is enabled for Spoke1, Spoke1VM2 does know about the On-Prem prefixes.
+
+Let's imagine we want the resources in this specific subnet to be isolated from On-Prem. 
+
+:arrow_right: If a route table with ***Gateway route propagation = disabled*** is applied to a specific subnet, either in the VNET hosting the Virtual Network Gateway or in a peered VNET, then the On-Prem prefixes received by the GW will NOT be propagated to this given subnet only.
+
+To achieve this, a route table with ***Gateway route propagation = disabled*** is applied specifically to VNET1/subnet2, 
+
+either in the Virtual Network Gateway VNET or in a peered VNET, then the On-Prem prefixes received by the GW will NOT be included in the Effective routes of the VMs belonging to this given subnet only.
+ 
+ 
+When GW route propagation is disabled, even on all the subnets of a VNET, the overall VNET IP range is STILL propagated On-Prem.
 
