@@ -1,17 +1,18 @@
-# Episode #1: Discovery/Reminder of Azure VNET connectivity & impact of Virtual Network Gateways
+# Episode #1: Azure VNET connectivity reminder, impact of Virtual Network Gateways, propagation options for On-Prem routes
+
 *Introduction note: This guide aims at providing a better understanding of the Azure routing mechanisms and how they translate from On-Prem networking. The focus will be on private routing in Hub & Spoke topologies. For clarity, network security and resiliency best practices as well as internet breakout considerations have been left out of this guide.*
 ##
 [1.1. Discovery/Reminder of Azure VNET connectivity principles](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#11-discoveryreminder-of-azure-vnet-connectivity-principles)
 
-[1.1.1. VNET peering & *Effective routes*](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#111-vnet-peering--effective-routes)
+&emsp;[1.1.1. VNET peering & *Effective routes*](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#111-vnet-peering--effective-routes)
   
-[1.1.2. Standard Hub & Spoke topology and non-transitivity of VNET peerings](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#112-standard-hub--spoke-topology-and-non-transitivity-of-vnet-peerings)
+&emsp;[1.1.2. Standard Hub & Spoke topology and non-transitivity of VNET peerings](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#112-standard-hub--spoke-topology-and-non-transitivity-of-vnet-peerings)
 
 [1.2. Connectivity impact of adding a Virtual Network Gateway (ER or VPN)](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#12-connectivity-impact-of-adding-a-virtual-network-gateway-er-or-vpn)
 
-[1.2.1. Azure Virtual Network GW (VPN or ER) for On-Prem connectivity](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#121azure-virtual-network-gw-vpn-or-er-for-on-prem-connectivity)
+&emsp;[1.2.1. Azure Virtual Network GW (VPN or ER) for On-Prem connectivity](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#121azure-virtual-network-gw-vpn-or-er-for-on-prem-connectivity)
 
-[1.2.2. On-Prem <=> Spokes propagation](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#122on-prem--spokes-propagation) ([*Gateway Transit*](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#1221-gw-transit-scope--the-entire-vnet--the-vnet-range-is-or-is-not-advertised-on-prem) & [*Gateway route propagation*](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#1222-propagate-gateway-routes-scope--selected-subnets-of-a-vnet-only--the-vnet-range-still-gets-advertised-on-prem) features)
+&emsp;[1.2.2. On-Prem <=> Spokes propagation](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#122on-prem--spokes-propagation) ([*Gateway Transit*](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#1221-gw-transit-scope--the-entire-vnet--the-vnet-range-is-or-is-not-advertised-on-prem) & [*Gateway route propagation*](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#1222-propagate-gateway-routes-scope--selected-subnets-of-a-vnet-only--the-vnet-range-still-gets-advertised-on-prem) features)
 ##
 # 1.1. Discovery/Reminder of Azure VNET connectivity principles
 
