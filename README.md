@@ -1,4 +1,4 @@
-# Episode #1: Discovery/Reminder of Azure VNET Connectivity & Impact of Virtual Network Gateways
+# Episode #1: Discovery/Reminder of Azure VNET connectivity & impact of Virtual Network Gateways
 
 [1.1. Discovery/Reminder of Azure VNET connectivity principles](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#11-discoveryreminder-of-azure-vnet-connectivity-principles)
 
