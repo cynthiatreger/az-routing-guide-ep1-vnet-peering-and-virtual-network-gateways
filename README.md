@@ -1,4 +1,4 @@
-## [< BACK TO THE MAIN MENU](https://github.com/cynthiatreger/az-routing-guide-intro)
+## [<< BACK TO THE MAIN MENU](https://github.com/cynthiatreger/az-routing-guide-intro)
 # Episode #1: VNET connectivity, impact of Virtual Network Gateways, On-Prem route propagation options
 
 *Introduction note: This guide aims at providing a better understanding of the Azure routing mechanisms and how they translate from On-Prem networking. The focus will be on private routing in Hub & Spoke topologies. For clarity, network security and resiliency best practices as well as internet breakout considerations have been left out of this guide.*
@@ -77,3 +77,8 @@ Spoke1VM2 is a new VM is added in Spoke1/subnet2. As ***GW Transit*** is enabled
 :arrow_right: When ***GW route propagation*** is disabled, even on all the subnets of a VNET, the overall VNET IP range is STILL propagated On-Prem.
 
 <img width="1118" alt="image" src="https://user-images.githubusercontent.com/110976272/215284125-96dceab0-f9c2-438e-b24b-8fd5e414ad88.png">
+
+##
+
+[>> EPISODE #2](https://github.com/cynthiatreger/az-routing-guide-ep2-nic-routing) (out 31/01)
+
