@@ -1,5 +1,5 @@
 ## [< BACK TO THE MAIN MENU](https://github.com/cynthiatreger/az-routing-guide-intro)
-# Episode #1: Azure VNET connectivity reminder, impact of Virtual Network Gateways, propagation options for On-Prem routes
+# Episode #1: VNET connectivity, impact of Virtual Network Gateways, On-Prem routes propagation options
 
 *Introduction note: This guide aims at providing a better understanding of the Azure routing mechanisms and how they translate from On-Prem networking. The focus will be on private routing in Hub & Spoke topologies. For clarity, network security and resiliency best practices as well as internet breakout considerations have been left out of this guide.*
 ##
