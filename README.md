@@ -1,4 +1,5 @@
-## [<< BACK TO THE MAIN MENU](https://github.com/cynthiatreger/az-routing-guide-intro)
+### [<< BACK TO THE MAIN MENU](https://github.com/cynthiatreger/az-routing-guide-intro)
+##
 # Episode #1: VNET connectivity, impact of Virtual Network Gateways, On-Prem route propagation options
 
 *Introduction note: This guide aims at providing a better understanding of the Azure routing mechanisms and how they translate from On-Prem networking. The focus will be on private routing in Hub & Spoke topologies. For clarity, network security and resiliency best practices as well as internet breakout considerations have been left out of this guide.*
@@ -42,7 +43,7 @@ Using this peering logic, since the Hub VNET is peered with both Spoke1 and Spok
 ## 1.2.1.	Azure Virtual Network GW (VPN or ER) for On-Prem connectivity
 Let's look at the **default route propagation** when an Virtual Network GW is deployed (Expressroute GW here, but the results would be similar with a VPN GW). 
 
-The VNET hosting the virtual Network GW is usually a central Hub VNET.
+The Virtual Network GW is usually hosted in a central Hub VNET, and must be in the *Gatewaysubnet* subnet.
 
 :arrow_right: Whether it is VPN or ER, [if a Virtual Network Gateway (VNG) is added in a Hub VNET](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#border-gateway-protocol) and further connected to On-Prem, the the On-Prem  prefixes received by the virtual Network GW will by default automatically be known within this Hub VNET. The Hub VNET range is advertised in return to the On-Prem.
 
@@ -56,7 +57,7 @@ The VNET hosting the virtual Network GW is usually a central Hub VNET.
 
 ### 1.2.2.1. “Gateway transit” scope = the entire VNET & the VNET range is (or is not) advertised On-Prem
 
-[***Gateway Transit***](https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-peering-gateway-transit?toc=%2Fazure%2Fvirtual-network%2Ftoc.json) allows to extend the scope of the connectivity between Azure and On-Prem to peered VNETs, as represented on the diagram below for Spoke1 VNET. 
+[***Gateway Transit***](https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-peering-gateway-transit?toc=%2Fazure%2Fvirtual-network%2Ftoc.json) allows to extend the scope of the connectivity between Azure and the On-Prem to peered VNETs, as represented on the diagram below for Spoke1 VNET. 
 
 It is a per-VNET peering feature that must be applied on both ends of a peering:
 
@@ -70,15 +71,14 @@ It is a per-VNET peering feature that must be applied on both ends of a peering:
 
 ### 1.2.2.2. “Propagate Gateway Routes” scope = selected subnets of a VNET only & the VNET range still gets advertised On-Prem
 
-Spoke1VM2 is a new VM is added in Spoke1/subnet2. As ***GW Transit*** is enabled for Spoke1, Spoke1VM2 does know about the On-Prem prefixes. But let's imagine we want the resources in this specific subnet to be isolated from On-Prem. 
+Spoke1VM2 is a new VM is added in Spoke1/subnet2. As *GW Transit* is enabled for Spoke1, Spoke1VM2 does know about the On-Prem prefixes. But let's imagine we want the resources in this specific subnet to be isolated from On-Prem. 
 
 :arrow_right: If a route table with [***Gateway route propagation*** = disabled](https://learn.microsoft.com/en-us/azure/virtual-network/manage-route-table#create-a-route-table:~:text=Propagate%20gateway%20routes,to%20Disabled.) is applied to a specific subnet, either in the VNET hosting the Virtual Network Gateway or in a peered VNET, then the On-Prem prefixes received by the GW will NOT be propagated to this given subnet.
 
-:arrow_right: When ***GW route propagation*** is disabled, even on all the subnets of a VNET, the overall VNET IP range is STILL propagated On-Prem.
+:arrow_right: When *GW route propagation* is disabled, even on all the subnets of a VNET, the overall VNET IP range is STILL propagated On-Prem.
 
 <img width="1118" alt="image" src="https://user-images.githubusercontent.com/110976272/215284125-96dceab0-f9c2-438e-b24b-8fd5e414ad88.png">
 
 ##
-
 ### [>> EPISODE #2](https://github.com/cynthiatreger/az-routing-guide-ep2-nic-routing) (out 31/01)
 
