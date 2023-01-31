@@ -45,7 +45,7 @@ Let's look at the **default route propagation** when an Virtual Network GW is de
 
 The Virtual Network GW is usually hosted in a central Hub VNET, and must be in the *Gatewaysubnet* subnet.
 
-:arrow_right: Whether it is VPN or ER, [if a Virtual Network Gateway (VNG) is added in a Hub VNET](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#border-gateway-protocol) and further connected to On-Prem, the the On-Prem  prefixes received by the virtual Network GW will by default automatically be known within this Hub VNET. The Hub VNET range is advertised in return to the On-Prem.
+:arrow_right: Whether it is VPN or ER, [if a Virtual Network Gateway (VNG) is added in a Hub VNET](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#border-gateway-protocol) and further connected to On-Prem, the On-Prem  prefixes received by the virtual Network GW will by default automatically be known within this Hub VNET. The Hub VNET range is advertised in return to the On-Prem.
 
 :arrow_right: By default, the On-Prem connectivity is not extended over existing VNET peerings: the On-Prem prefixes received by the Virtual Network GW are NOT readvertised to the peered Spoke VNETs and the Spoke VNET IP ranges are NOT propagated On-Prem.
 
