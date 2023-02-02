@@ -80,5 +80,5 @@ Spoke1VM2 is a new VM is added in Spoke1/subnet2. As *GW Transit* is enabled for
 <img width="1118" alt="image" src="https://user-images.githubusercontent.com/110976272/215284125-96dceab0-f9c2-438e-b24b-8fd5e414ad88.png">
 
 ##
-### [>> EPISODE #2](https://github.com/cynthiatreger/az-routing-guide-ep2-nic-routing) (out 31/01)
+### [>> EPISODE #2](https://github.com/cynthiatreger/az-routing-guide-ep2-nic-routing)
 
