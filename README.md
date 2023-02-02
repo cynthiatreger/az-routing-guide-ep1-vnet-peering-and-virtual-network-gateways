@@ -22,7 +22,7 @@
 
 To start, we will consider [2 peered VNETs](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview) and a VM in Spoke1 VNET. A single IP range* is allocated to each VNET. In the example below, each IP range is broken into 2 subnets.
 
-(* *An Azure Virtual Network (VNET) is made of one or multiple IP ranges and each range is split into subnets.*)
+* *An Azure Virtual Network (VNET) is made of one or multiple IP ranges and each range is split into subnets.*
 
 <img width="610" alt="image" src="https://user-images.githubusercontent.com/110976272/215267844-9dd42db4-253d-4de9-a9d9-b348e6e37b75.png">
 
