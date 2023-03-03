@@ -14,7 +14,7 @@
 
 &emsp;[1.2.1. Azure Virtual Network GW (VPN or ER) for On-Prem connectivity](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#121azure-virtual-network-gw-vpn-or-er-for-on-prem-connectivity)
 
-&emsp;[1.2.2. On-Prem <=> Spoke VNET propagation](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#122on-prem--spokes-propagation) ([*Gateway Transit*](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#1221-gw-transit-scope--the-entire-vnet--the-vnet-range-is-or-is-not-advertised-on-prem) & [*Gateway route propagation*](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#1222-propagate-gateway-routes-scope--selected-subnets-of-a-vnet-only--the-vnet-range-still-gets-advertised-on-prem) features)
+&emsp;[1.2.2. On-Prem <=> Spoke VNET propagation](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#122on-prem--spoke-vnet-propagation) ([*Gateway Transit*](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#1221-gw-transit-scope--the-entire-vnet--the-vnet-range-is-or-is-not-advertised-on-prem) & [*Gateway route propagation*](https://github.com/cynthiatreger/az-routing-guide-ep1-vnet-peering-and-virtual-network-gateways#1222-propagate-gateway-routes-scope--selected-subnets-of-a-vnet-only--the-vnet-range-still-gets-advertised-on-prem) features)
 ##
 # 1.1. Discovery/Reminder of Azure VNET connectivity principles
 
